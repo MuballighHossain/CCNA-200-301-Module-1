@@ -1,0 +1,154 @@
+Configuring Basic Router
+========================
+1. Configure Router Hostname
+-----------------------------
+Router(config)#hostname XYZ
+
+2. Configure IP Domain Name
+---------------------------
+XYZ(config)#ip domain-name xyz.com
+
+3. Secure the Privileged EXEC Mode
+----------------------------------
+XYZ(config)#enable password cricket
+Saves the password in the configuration file as plain-text. So this is not a secured method.
+
+XYZ(config)#enable secret cricket
+Saves the password in the configuration file as encrypted-text. So this is a secured method.
+
+4. Secure all the ways to access the Router
+-------------------------------------------
+We can access the Router in 2 ways:
+(a) Physically using line console
+(b) Remotely using line vty
+
+XYZ(config)#line console 0
+XYZ(config-line)#password football
+XYZ(config-line)#login
+XYZ(config-line)#exit
+
+XYZ(config)#line vty 0 4
+XYZ(config-line)#password baseball
+XYZ(config-line)#login
+XYZ(config-line)#exit
+
+5. Enable Password Encryption Service
+-------------------------------------
+XYZ(config)#service password-encryption
+
+6. Enable IPv6 Unicast Routing
+------------------------------
+XYZ(config)#ipv6 unicast-routing
+
+7. Configure IP Addresses
+-------------------------
+XYZ(config)#interface Fa0/0
+XYZ(config-if)#description Connection to User LAN
+XYZ(config-if)#ip address 172.16.1.1 255.255.255.0
+XYZ(config-if)#ipv6 address 2001:db8:acad:1::1/64
+XYZ(config-if)#no shutdown
+XYZ(config-if)#exit
+
+XYZ(config)#interface Fa0/1
+XYZ(config-if)#description Connection to Server LAN
+XYZ(config-if)#ip address 172.16.2.1 255.255.255.240
+XYZ(config-if)#ipv6 address 2001:db8:acad:2::1/64
+XYZ(config-if)#no shutdown
+XYZ(config-if)#exit
+
+8. Create Local User Database and enable in-band authentication
+---------------------------------------------------------------
+XYZ(config)#username admin secret admin123
+XYZ(config)#username kuddus secret boyati123
+
+XYZ(config)#line console 0
+XYZ(config-line)#login local
+XYZ(config-line)#exit
+
+XYZ(config)#line vty 0 4
+XYZ(config-line)#login local
+XYZ(config-line)#exit
+
+9. Configure SSH
+----------------
+XYZ(config)#crypto key generate rsa
+
+To view the generated key:
+XYZ#show crypto key mypubkey rsa
+
+To remove the crypto key:
+XYZ(config)#crypto key zeroize rsa
+
+To SSH from a computer:
+C:\>ssh -l admin 172.16.1.1
+
+To enable SSH only:
+XYZ(config)#line vty 0 4
+XYZ(config-line)#transport input ssh
+XYZ(config-line)#exit
+
+Configure Optional SSH parameters:
+XYZ(config)#ip ssh version 2
+XYZ(config)#ip ssh time-out 60
+XYZ(config)#ip ssh authentication-retries 5
+
+10. Set Security Password Minimum Length
+----------------------------------------
+XYZ(config)#security passwords min-length 8
+
+11. Set Banner Message of the Day
+---------------------------------
+XYZ(config)#banner motd #Unauthorized Access Prohibited!#
+
+Basic Switch Configuration
+==========================
+Switch(config)#hostname SW1
+SW1(config)#banner motd #Unauthorized Access Prohibited!#
+SW1(config)#enable secret cricket
+SW1(config)#line console 0
+SW1(config-line)#password football
+SW1(config-line)#login
+SW1(config-line)#exit
+SW1(config)#line vty 0 4
+SW1(config-line)#password baseball
+SW1(config-line)#login
+SW1(config-line)#exit
+SW1(config)#username admin secret admin123
+SW1(config)#username kuddus secret boyati123
+SW1(config)#line console 0
+SW1(config-line)#login local
+SW1(config-line)#exit
+SW1(config)#line vty 0 4
+SW1(config-line)#login local
+SW1(config-line)#exit
+
+SW1(config)#interface vlan 1
+SW1(config-if)#ip address 172.16.1.254 255.255.255.0
+SW1(config-if)#no shutdown
+SW1(config)#ip default-gateway 172.16.1.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
