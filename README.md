@@ -1,5 +1,3 @@
-Exploring the foundations of networking with CCNAv7 Module 1: from understanding network models to grasping essential protocols, I've gained insights into how data flows, the importance of IP addressing, and the role of networking devices.
-
 Early in May of 2024, I enrolled in the CCNAv7: Introduction to Networks. I learned the following topics from my classes at AIUB Institute of Continuing Education:
     Networking Fundamentals: Understanding what networks are and their components.
     Network Models: Learning about the OSI and TCP/IP models.
